@@ -7,6 +7,7 @@ import CollapsableWidget from "../components/collapsablePanel/panelWidget";
 import CollapsablePanel from "../components/collapsablePanel/singlePanel";
 import { useEffect } from "react";
 import SlidersData from "../data/home/sliderSection.json";
+import ReviewSectionWrapper from "../components/reviewSection/reviewSectionWrapper";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -152,7 +153,9 @@ export default function Home({title, children, todos}) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid className={`${classes.section} ${classes.reviewSection}`} item xs={12}> Review section </Grid>
+          <Grid className={`${classes.section} ${classes.reviewSection}`} item xs={12}> 
+            <ReviewSectionWrapper />
+          </Grid>
       </Grid>
   </DefaultLayout>
   );
