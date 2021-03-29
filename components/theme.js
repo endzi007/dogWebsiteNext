@@ -18,7 +18,8 @@ const theme = createMuiTheme({
       default:"#A89EA7"
     },
     text: {
-      primary: "#686667"
+      primary: "#686667",
+      
     }
   },
   overrides:{
@@ -40,7 +41,12 @@ const theme = createMuiTheme({
   customProps: {
     paddingTop: "60px",
     containerWidth: "90vw",
-    margin: "0 auto",
+    margin: "8vh auto 0 auto",
+  },
+  typography: {
+    allVariants: {
+      fontFamily: ["Almira"]
+    }
   }
 });
 

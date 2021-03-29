@@ -1,14 +1,17 @@
-import { Grid, makeStyles, Fab } from "@material-ui/core";
+import { Grid, makeStyles, Fab, Typography } from "@material-ui/core";
 import { useRef } from "react";
 import { ArrowLeft, ArrowRight } from "@material-ui/icons";
+import SlidersData from "../../data/home/sliderSection.json";
+
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
     height: "auto",
     alignItems: "stretch",
     overflow: "hidden",
-    flexWrap: "nowrap",
     scrollBehavior: "smooth",
     position: "relative",
+    display: "flex", 
+    
   },
   arrowBack: {
     position: "absolute",
@@ -41,10 +44,10 @@ export default function PostList({children}) {
   };
   return (
       <div className={classes.wrapper}>
-
-      <Grid container ref={myRef} className={classes.gridContainer} spacing={3}>
-       {children}
-      </Grid>
+        <Typography variant="h4">{SlidersData["sliderSection"]["headingText"]}</Typography>
+        <div container ref={myRef} className={classes.gridContainer}>
+        {children}
+        </div>
         <Fab
             color="primary"
             className={classes.arrowBack}
@@ -59,7 +62,7 @@ export default function PostList({children}) {
             >
             <ArrowRight />
             </Fab>
-            </div>
+      </div>
 
   );
 }

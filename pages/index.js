@@ -6,11 +6,11 @@ import SinglePost from "../components/posts/singlePost";
 import CollapsableWidget from "../components/collapsablePanel/panelWidget";
 import CollapsablePanel from "../components/collapsablePanel/singlePanel";
 import { useEffect } from "react";
+import SlidersData from "../data/home/sliderSection.json";
 
 const useStyles = makeStyles(theme => ({
     container: {
         backgroundColor: theme.palette.background.paper,
-        marginTop: "8vh",
         paddingTop: "100px",
         position: "relative"
     },
@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
       bottom: "50%",
       right: "0",
       height: "auto",
-      width: "50%",
+      width: "80%",
       maxHeight: "200%",
       transform: "translateY(50%)",
       objectFit: "scale-down",
@@ -79,48 +79,52 @@ const useStyles = makeStyles(theme => ({
       minHeight: "200px",
       padding: theme.spacing(3),
       maxWidth: "50ch", 
+      [theme.breakpoints.down("md")]: {
+        zIndex: 1
+      },
+      [theme.breakpoints.down("sm")]: {
+        width: "80vw",
+        maxWidth: "100%",
+        height: "auto",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        backgroundColor: "rgba(255,255,255, 0.5)",
+      },
     }
+    
 
 }))
 
 const setupPosts = ()=>{
-      let arr = [];
-      for (let index = 0; index < 10; index++) {
-        arr.push(<SinglePost />);
-      }
-      return arr;
+      let slides = SlidersData["sliderSection"]["slides"].map((slide, i)=>{
+        return  <SinglePost key={`SinglePost_${i}`} {...slide} />
+      })
+
+      
+
+      return slides; 
   
 }
 
 
 export default function Home({title, children, todos}) {
   const classes = useStyles();
-  
-useEffect(()=>{
-  fetch('http://localhost:3000/data/test.json').then((data)=>{
-    return data.json();
-  }).then((posts)=>{
-    console.log(posts);
-  }).catch((e)=>{
-    console.log(e)
-  });
-}, [])
+  setupPosts();
   return (
   <DefaultLayout title="Enis ">
       <Grid container className={classes.container}>
           <Grid className={`${classes.section} ${classes.dogSection}`} item xs={12}>
             <Grid container className={`${classes.dogSectionInner}`}>
-              <Grid className={classes.pictureHolder} item xs={12}>
-                    <Paper className={classes.headerCard}>
-                      <Typography variant="h1" color="primary">
-                        Enisss 
-                      </Typography>
-                      <Typography variant="body1" color="textPrimary">
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                      </Typography>
-                    </Paper>
-                    <img className={classes.headerDogPicture} src="/photos/dog.png" alt="Picture of dog"/>
-                </Grid>
+                  <Paper className={classes.headerCard}>
+                    <Typography variant="h1" color="primary">
+                      Enisss 
+                    </Typography>
+                    <Typography variant="body1" color="textPrimary">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                    </Typography>
+                  </Paper>
+                  <img className={classes.headerDogPicture} src="/photos/dogSectionImage.webp" alt="Picture of dog"/>
             </Grid>
           </Grid>
           <Grid className={`${classes.section} ${classes.sliderSection}`} item xs={12}>

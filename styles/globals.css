@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "Almira";
+    src: local("Almira") url("/almira_demo.otf") format("otf");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  *{
+      font-family: "Almira"!important;
+  }

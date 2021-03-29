@@ -11,7 +11,7 @@ import {
   Typography
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme =>({
   root: {
     width: "100%",
     height: "auto",
@@ -23,11 +23,19 @@ const useStyles = makeStyles({
   gridItem: {
     flexBasis: "25%",
     flexGrow: 0,
-    flexShrink: 0
+    flexShrink: 0,
+    padding: theme.spacing(2),
+    [theme.breakpoints.down("sm")]:{
+      flexBasis: "50%",
+    }, 
+    [theme.breakpoints.down("xs")]:{
+      flexBasis: "100%",
+    }, 
   }
-});
+}));
 
-export default function SinglePost() {
+export default function SinglePost(props) {
+  const { pictureUrl, headingText, slideText} = props;
   const classes = useStyles();
   return (
     <Grid item className={classes.gridItem}>
@@ -35,15 +43,15 @@ export default function SinglePost() {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="../picture1.jpg"
+            image={pictureUrl}
             title="Contemplative Reptile"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              Lizard
+              {headingText}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              Lizards 
+              {slideText} 
             </Typography>
           </CardContent>
         </CardActionArea>

@@ -1,0 +1,9 @@
+{
+    "headingText": "Why this dog?",
+    "panels": [
+        {"headingText": "panel text 1", "panelText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac molestie purus. Nullam gravida nibh sit amet vulputate commodo. Praesent quis blandit diam, id vehicula libero. Praesent facilisis erat nec"},
+        {"headingText": "panel text 2", "panelText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac molestie purus. Nullam gravida nibh sit amet vulputate commodo. Praesent quis blandit diam, id vehicula libero. Praesent facilisis erat nec"},
+        {"headingText": "panel text 3", "panelText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac molestie purus. Nullam gravida nibh sit amet vulputate commodo. Praesent quis blandit diam, id vehicula libero. Praesent facilisis erat nec"},
+        {"headingText": "panel text 4", "panelText": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac molestie purus. Nullam gravida nibh sit amet vulputate commodo. Praesent quis blandit diam, id vehicula libero. Praesent facilisis erat nec"}
+    ]
+}
