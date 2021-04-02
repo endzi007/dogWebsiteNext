@@ -42,26 +42,32 @@ export default function PostList({children}) {
   const clickNext = (e) => {
     myRef.current.scrollLeft += myRef.current.offsetWidth;
   };
-  return (
-      <div className={classes.wrapper}>
-        <Typography variant="h4">{SlidersData["sliderSection"]["headingText"]}</Typography>
-        <div container ref={myRef} className={classes.gridContainer}>
-        {children}
-        </div>
-        <Fab
+
+  const controlers = ()=>{
+    return <>
+            <Fab
             color="primary"
             className={classes.arrowBack}
             onClick={clickBack}
             >
             <ArrowLeft />
             </Fab>
-            <Fab
-            color="primary"
-            className={classes.arrowForward}
-            onClick={clickNext}
-            >
+        <Fab
+          color="primary"
+          className={classes.arrowForward}
+          onClick={clickNext}
+        >
             <ArrowRight />
-            </Fab>
+        </Fab>
+    </>
+  }
+  return (
+      <div className={classes.wrapper}>
+        <Typography variant="h4">{SlidersData["sliderSection"]["headingText"]}</Typography>
+        <div container ref={myRef} className={classes.gridContainer}>
+        {children}
+        </div>
+        {controlers()}
       </div>
 
   );

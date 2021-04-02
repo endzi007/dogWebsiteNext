@@ -7,7 +7,9 @@ import CollapsableWidget from "../components/collapsablePanel/panelWidget";
 import CollapsablePanel from "../components/collapsablePanel/singlePanel";
 import { useEffect } from "react";
 import SlidersData from "../data/home/sliderSection.json";
+import ReviewsData from "../data/home/reviewSection.json";
 import ReviewSectionWrapper from "../components/reviewSection/reviewSectionWrapper";
+import SingleReview from "../components/reviewSection/singleReview";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -108,6 +110,13 @@ const setupPosts = ()=>{
   
 }
 
+const setupReviews = ()=>{
+  let reviews = ReviewsData["persons"].map((slide, i)=>{
+    return  <SingleReview key={`SinglePost_${i}`} {...slide} />
+  })
+  return reviews; 
+}
+
 
 export default function Home({title, children, todos}) {
   const classes = useStyles();
@@ -154,7 +163,9 @@ export default function Home({title, children, todos}) {
             </Grid>
           </Grid>
           <Grid className={`${classes.section} ${classes.reviewSection}`} item xs={12}> 
-            <ReviewSectionWrapper />
+            <PostList> 
+              {setupReviews()}
+            </PostList>
           </Grid>
       </Grid>
   </DefaultLayout>
