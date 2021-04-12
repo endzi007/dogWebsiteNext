@@ -122,6 +122,7 @@ export default function Home({title, children, todos}) {
   return (
   <DefaultLayout title="Enis ">
       <Grid container className={classes.container}>
+
           <Grid className={`${classes.section} ${classes.dogSection}`} item xs={12}>
             <Grid container className={`${classes.dogSectionInner}`}>
                   <Paper className={classes.headerCard}>
@@ -135,9 +136,11 @@ export default function Home({title, children, todos}) {
                   <img className={classes.headerDogPicture} src="/photos/dogSectionImage.webp" alt="Picture of dog"/>
             </Grid>
           </Grid>
+
           <Grid className={`${classes.section} ${classes.sliderSection}`} item xs={12}>
              <Carousel data={SlidersData} Component={SinglePost} navigation="arrows" />
           </Grid>
+
           <Grid className={`${classes.section} ${classes.expandableSection}`} item xs={12}> 
             <Grid container>
               <Grid item xs={12} sm={6}>
@@ -157,9 +160,11 @@ export default function Home({title, children, todos}) {
               </Grid>
             </Grid>
           </Grid>
+ 
           <Grid className={`${classes.section} ${classes.reviewSection}`} item xs={12}> 
-            <Carousel data={ReviewsData} Component={SingleReview} navigation="dots" />
+            <Carousel data={ReviewsData} Component={SingleReview} navigation="arrows" />
           </Grid>
+
       </Grid>
   </DefaultLayout>
   );

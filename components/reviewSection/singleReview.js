@@ -3,7 +3,7 @@ import { Card, CardContent, Avatar, Typography, makeStyles } from "@material-ui/
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
-    wrapper: {
+    wrapper:  {
         flexBasis: "33%",
         flexShrink: "0",
         flexGrow: "0"
@@ -39,7 +39,7 @@ const SingleReview = forwardRef((props, ref) => {
       }
     });
     return (
-      <Card ref = {myInternalRef} item className={classes.wrapper}>
+      <Card ref = {myInternalRef} className={classes.wrapper}>
         <InternalComponent {...props} />
       </Card>
     );

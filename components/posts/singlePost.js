@@ -85,9 +85,9 @@ const InternalCard = ({ pictureUrl, headingText, slideText })=>{
   </Card>
   );
 }
-
+ 
 InternalCard.propTypes = {
     pictureUrl: PropTypes.string.isRequired,
-    personName: PropTypes.string.isRequired,
-    personText: PropTypes.string.isRequired,
+    headingText: PropTypes.string.isRequired,
+    slideText: PropTypes.string.isRequired,
 }
