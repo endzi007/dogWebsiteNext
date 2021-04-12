@@ -5,11 +5,12 @@ import PostList from "../components/posts/postList";
 import SinglePost from "../components/posts/singlePost";
 import CollapsableWidget from "../components/collapsablePanel/panelWidget";
 import CollapsablePanel from "../components/collapsablePanel/singlePanel";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import SlidersData from "../data/home/sliderSection.json";
 import ReviewsData from "../data/home/reviewSection.json";
 import ReviewSectionWrapper from "../components/reviewSection/reviewSectionWrapper";
 import SingleReview from "../components/reviewSection/singleReview";
+import Carousel from "../components/carousel/carousel";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -99,28 +100,25 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const setupPosts = ()=>{
-      let slides = SlidersData["sliderSection"]["slides"].map((slide, i)=>{
-        return  <SinglePost key={`SinglePost_${i}`} {...slide} />
-      })
-
-      
-
-      return slides; 
-  
-}
-
-const setupReviews = ()=>{
-  let reviews = ReviewsData["persons"].map((slide, i)=>{
-    return  <SingleReview key={`SinglePost_${i}`} {...slide} />
-  })
-  return reviews; 
-}
-
 
 export default function Home({title, children, todos}) {
   const classes = useStyles();
-  setupPosts();
+  const singleSlideRef = useRef();
+  const setupPosts = ()=>{
+    let slides = SlidersData["sliderSection"]["slides"].map((slide, i)=>{
+      return  <SinglePost key={`SinglePost_${i}`} {...slide} ref={singleSlideRef} />
+    })
+    return slides; 
+
+  }
+
+  const setupReviews = ()=>{
+    let reviews = ReviewsData["persons"].map((slide, i)=>{
+    return  <SingleReview key={`SinglePost_${i}`} {...slide} />
+    })
+    return reviews; 
+  }
+
   return (
   <DefaultLayout title="Enis ">
       <Grid container className={classes.container}>
@@ -138,9 +136,7 @@ export default function Home({title, children, todos}) {
             </Grid>
           </Grid>
           <Grid className={`${classes.section} ${classes.sliderSection}`} item xs={12}>
-            <PostList> 
-              {setupPosts()}
-            </PostList>
+             <Carousel data={SlidersData} Component={SinglePost} navigation="arrows" />
           </Grid>
           <Grid className={`${classes.section} ${classes.expandableSection}`} item xs={12}> 
             <Grid container>
@@ -153,7 +149,6 @@ export default function Home({title, children, todos}) {
                 <Typography variant="body1">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</Typography>
                 </CollapsablePanel>
                 <CollapsablePanel title="Heading1">
-                  <SinglePost />
                 </CollapsablePanel>
               </CollapsableWidget>
               </Grid>
@@ -163,9 +158,7 @@ export default function Home({title, children, todos}) {
             </Grid>
           </Grid>
           <Grid className={`${classes.section} ${classes.reviewSection}`} item xs={12}> 
-            <PostList> 
-              {setupReviews()}
-            </PostList>
+            <Carousel data={ReviewsData} Component={SingleReview} navigation="dots" />
           </Grid>
       </Grid>
   </DefaultLayout>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef, useImperativeHandle, useRef} from "react";
 import { makeStyles } from "@material-ui/core";
 import {
   Grid,
@@ -10,7 +10,7 @@ import {
   Button,
   Typography
 } from "@material-ui/core";
-
+import PropTypes from "prop-types";
 const useStyles = makeStyles(theme =>({
   root: {
     width: "100%",
@@ -34,36 +34,60 @@ const useStyles = makeStyles(theme =>({
   }
 }));
 
-export default function SinglePost(props) {
-  const { pictureUrl, headingText, slideText} = props;
+const SinglePost = forwardRef((props, ref) => {
   const classes = useStyles();
+  const myInternalRef = useRef()
+  useImperativeHandle(ref, ()=>{
+    return {
+      getWidth: ()=>{
+        console.log("function getWidth called");
+        return myInternalRef.current.offsetWidth
+      }
+    }
+  });
   return (
-    <Grid item className={classes.gridItem}>
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image={pictureUrl}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {headingText}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {slideText} 
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
-        </CardActions>
-      </Card>
+    <Grid ref = {myInternalRef} item className={classes.gridItem}>
+      <InternalCard {...props} />
     </Grid>
   );
+});
+
+export default SinglePost;
+
+
+const InternalCard = ({ pictureUrl, headingText, slideText })=>{
+  const classes = useStyles();
+  return (
+    <Card className={classes.root}>
+    <CardActionArea>
+      <CardMedia
+        className={classes.media}
+        image={pictureUrl}
+        title="Contemplative Reptile"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
+          {headingText}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {slideText} 
+        </Typography>
+      </CardContent>
+    </CardActionArea>
+    <CardActions>
+      <Button size="small" color="primary">
+        Share
+      </Button>
+      <Button size="small" color="primary">
+        Learn More
+      </Button>
+    </CardActions>
+  </Card>
+  );
+}
+
+InternalCard.propTypes = {
+    pictureUrl: PropTypes.string.isRequired,
+    personName: PropTypes.string.isRequired,
+    personText: PropTypes.string.isRequired,
 }
