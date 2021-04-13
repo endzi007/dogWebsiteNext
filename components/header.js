@@ -1,20 +1,33 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { AppBar, Button, ButtonBase, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Toolbar } from "@material-ui/core";
 export default function Header() {
+
+    const [ pages, setPages ] = useState([]);
+
+    useEffect(() => {
+        console.log(process.env.NEXT_PUBLIC_API_BASE_POINT);
+        const pages = fetch(`${process.env.NEXT_PUBLIC_API_BASE_POINT}/api/pages`);
+        pages.then((data)=>{
+            return data.json();
+        }).then((pages)=>{
+            setPages( oldPages => {
+                return pages.map((page, i)=>{
+                const link = page==="index.js" ? "/" : `/${page.substr(0, page.length - 3)}`;
+                return (<Link href={link} passHref>
+                    <Button variant="text" color="inherit"> {page} </Button>
+                </Link>)
+                })
+            });
+        }).catch((e)=>{
+            console.error(e);
+        })
+    }, []);
 
     return (
         <AppBar position="absolute" color="transparent">
             <Toolbar>
-                <Link href="/" passHref>
-                    <Button variant="text" color="inherit"> Home </Button>
-                </Link>
-                <Link href="/about" passHref>
-                    <Button variant="text" color="inherit"> About </Button>
-                </Link>
-                <Link href="/contact" passHref>
-                    <Button variant="text" color="inherit"> Contact </Button>
-                </Link>
+                {pages}
             </Toolbar>
         </AppBar>
     )

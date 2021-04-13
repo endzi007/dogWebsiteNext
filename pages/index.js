@@ -101,9 +101,10 @@ const useStyles = makeStyles(theme => ({
 }))
 
 
-export default function Home({title, children, todos}) {
+export default function Home({title, children, todos, menuPages}) {
   const classes = useStyles();
   const singleSlideRef = useRef();
+  console.log(menuPages);
   const setupPosts = ()=>{
     let slides = SlidersData["sliderSection"]["slides"].map((slide, i)=>{
       return  <SinglePost key={`SinglePost_${i}`} {...slide} ref={singleSlideRef} />
@@ -174,7 +175,6 @@ export default function Home({title, children, todos}) {
 export async function getStaticProps(ctx){
   const directory = fs.readdirSync("./pages");
   const pages = directory.filter(page =>{
-    console.log(page[0] === "[");
       if(page !== "api"){
         if(page[0] !== "["){
           if(page[0] !== "_"){
@@ -184,6 +184,9 @@ export async function getStaticProps(ctx){
       } 
       return "";
   })
+
+  console.log("pagess", pages);
+
 
   return {
     props: {

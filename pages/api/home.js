@@ -1,3 +1,5 @@
+import fs from "fs";
+
 export default async function HomeAPI (req, res){
     const data = await getData()
     res.send(data);
