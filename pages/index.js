@@ -11,13 +11,9 @@ import ReviewsData from "../data/home/reviewSection.json";
 import ReviewSectionWrapper from "../components/reviewSection/reviewSectionWrapper";
 import SingleReview from "../components/reviewSection/singleReview";
 import Carousel from "../components/carousel/carousel";
+import FullWidhtWithNoSidebar from "../components/layouts/fullWidthNoSidebar";
 
 const useStyles = makeStyles(theme => ({
-    container: {
-        backgroundColor: theme.palette.background.paper,
-        paddingTop: "100px",
-        position: "relative"
-    },
     section: {
       minHeight: "300px",
       height: "auto",
@@ -121,9 +117,8 @@ export default function Home({title, children, todos, menuPages}) {
   }
 
   return (
-  <DefaultLayout title="Enis ">
-      <Grid container className={classes.container}>
-
+  <DefaultLayout title="Enis">
+    <FullWidhtWithNoSidebar>
           <Grid className={`${classes.section} ${classes.dogSection}`} item xs={12}>
             <Grid container className={`${classes.dogSectionInner}`}>
                   <Paper className={classes.headerCard}>
@@ -163,10 +158,9 @@ export default function Home({title, children, todos, menuPages}) {
           </Grid>
  
           <Grid className={`${classes.section} ${classes.reviewSection}`} item xs={12}> 
-            <Carousel data={ReviewsData} Component={SingleReview} navigation="arrows" />
+            <Carousel data={ReviewsData} Component={SingleReview} navigation="dots" />
           </Grid>
-
-      </Grid>
+    </FullWidhtWithNoSidebar>
   </DefaultLayout>
   );
 }

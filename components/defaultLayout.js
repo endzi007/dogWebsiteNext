@@ -8,6 +8,7 @@ const useStyles = makeStyles(theme => ({
     width: theme.customProps.containerWidth,
     margin: theme.customProps.margin,
     position: "relative",
+    backgroundColor: theme.palette.background.paper
   }
 }))
 

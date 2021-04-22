@@ -7,6 +7,9 @@ const useStyles = makeStyles(theme => ({
         gridTemplateAreas: `"sidebar content content"
                             "sidebar content content"
                             "sidebar content content"`,
+        minHeight: "60vh",
+        position: "relative",
+        boxSizing: "contet-box"
         
     }
 }))
@@ -17,3 +20,5 @@ const LeftSideBar = ({children})=>{
         {children}
     </div>
 }
+
+export default LeftSideBar;

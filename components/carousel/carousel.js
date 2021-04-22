@@ -1,6 +1,6 @@
 import { Radio, makeStyles, Fab, Typography } from "@material-ui/core";
 import React, { useRef, useState, useEffect } from "react";
-import { ArrowForwardIos, ArrowBackIos } from "@material-ui/icons";
+import { ArrowForwardIos, ArrowBackIos, SentimentDissatisfiedSharp } from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 //styles for Carousel component
@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "flex", 
     width: "100%",
+    boxSizing: "border-box"
   },
   wrapper: {
       paddingLeft: theme.spacing(5),
@@ -28,7 +29,7 @@ export default function Carousel({data, Component, navigation}) {
   const slideRef = useRef(); //this is used to determine width of the slide
   const [ dataToDisplay, setDataToDisplay ] = useState();
   const [ selectedIndex, setSelectedIndex ] = useState(0);
-  
+
   //this function is scolling to the left by full container width
   const clickBack = (e) => {
     containerRef.current.scrollLeft -= containerRef.current.offsetWidth;
@@ -54,28 +55,28 @@ export default function Carousel({data, Component, navigation}) {
     containerRef.current.scrollLeft = Number.parseInt(e.target.value) * slideWidth;
   }
 
-
   //make carousel by maping data["data"] array in JSON and combining with passed Component which could be any custom React Component
   useEffect(() => {
-    const tempData = data["data"].map((entity, i)=>{
+    let tempData = data["data"].map((entity, i)=>{
       return <Component key={`slide_${i}`} {...entity} ref={slideRef} />
     })
 
+    //in this step we are adding another set of slides at the end because when we use dots as navigation 
+    //when we click on the last last dot there is nothint left to show on the right side 
+    if (navigation === "dots"){
+      for (let i = 0; i < 4; i++) {
+        const element = <Component key={`additinalSlide_${i}`} {...data["data"][i]} ref={slideRef} />;
+        tempData.push(element);
+      }
+    } 
+    
     setDataToDisplay(tempData);
   }, [])
 
-  //determining which type of navigation is it going to be used in component arrows || dots
-  const preferedNavigation = () => {
-    switch (navigation) {
-      case "dots":
-        return <Dots handleChange = {handleChange} data={data["data"]} selectedIndex = {selectedIndex} />
-      case "arrows":
-          return <ArrowControlers clickNext = {clickNext} clickBack={clickBack} />
-      default:
-          return <ArrowControlers clickNext = {clickNext} clickBack={clickBack} />
-    }
-  };
-
+  const navigationTypes = {
+    dots: <Dots handleChange = {handleChange} data={data["data"]} selectedIndex = {selectedIndex} />,
+    arrows: <ArrowControlers clickNext = {clickNext} clickBack={clickBack} />
+  }
 
   return (
       <div className={classes.wrapper}>
@@ -83,7 +84,7 @@ export default function Carousel({data, Component, navigation}) {
         <div ref={containerRef} className={classes.gridContainer}>
           {dataToDisplay}
         </div>
-        {preferedNavigation()}
+        {navigationTypes[navigation]}
       </div>
   );
 }
