@@ -1,7 +1,6 @@
 import DefaultLayout from "../components/defaultLayout";
 import fs from 'fs';
 import { Grid, makeStyles, Typography, CardMedia, Paper} from "@material-ui/core";
-import PostList from "../components/posts/postList";
 import SinglePost from "../components/posts/singlePost";
 import CollapsableWidget from "../components/collapsablePanel/panelWidget";
 import CollapsablePanel from "../components/collapsablePanel/singlePanel";

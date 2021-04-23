@@ -4,16 +4,16 @@ import LeftSideBar from "../components/layouts/leftSideBar";
 import sliderData from "../data/home/sliderSection.json";
 import SinglePost from '../components/posts/singlePost'
 
-export default function Home({title, children, todos}) {
+export default function About({title, children, todos}) {
 
   return (
   <DefaultLayout title="About page">
       <LeftSideBar>
         <div>
-          sidebar content
+        <Carousel data={sliderData} Component={SinglePost} navigation="arrows" /> 
         </div>
         <div>
-          <Carousel title="someTitle" data={sliderData} navigation="dots" Component={SinglePost} />
+          <Carousel data={sliderData} Component={SinglePost} navigation="dots" /> 
         </div>
       </LeftSideBar>
   </DefaultLayout>

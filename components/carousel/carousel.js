@@ -1,6 +1,6 @@
 import { Radio, makeStyles, Fab, Typography } from "@material-ui/core";
 import React, { useRef, useState, useEffect } from "react";
-import { ArrowForwardIos, ArrowBackIos, SentimentDissatisfiedSharp } from "@material-ui/icons";
+import { ArrowForwardIos, ArrowBackIos } from "@material-ui/icons";
 import PropTypes from "prop-types";
 
 //styles for Carousel component
@@ -13,12 +13,24 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "flex", 
     width: "100%",
-    boxSizing: "border-box"
+
   },
   wrapper: {
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
       position: "relative"
+  },
+  slideWrapper: {
+      flexBasis: "25%",
+      flexGrow: 0,
+      flexShrink: 0,
+      padding: theme.spacing(2),
+      [theme.breakpoints.down("sm")]:{
+        flexBasis: "50%",
+      }, 
+      [theme.breakpoints.down("xs")]:{
+        flexBasis: "100%",
+      }
   }
 }));
 
@@ -58,14 +70,19 @@ export default function Carousel({data, Component, navigation}) {
   //make carousel by maping data["data"] array in JSON and combining with passed Component which could be any custom React Component
   useEffect(() => {
     let tempData = data["data"].map((entity, i)=>{
-      return <Component key={`slide_${i}`} {...entity} ref={slideRef} />
+
+      return (
+        <div className={classes.slideWrapper}>
+          <Component key={`slide_${i}`} {...entity} ref={slideRef} />
+        </div>
+      );
     })
 
     //in this step we are adding another set of slides at the end because when we use dots as navigation 
     //when we click on the last last dot there is nothint left to show on the right side 
     if (navigation === "dots"){
       for (let i = 0; i < 4; i++) {
-        const element = <Component key={`additinalSlide_${i}`} {...data["data"][i]} ref={slideRef} />;
+        const element = <div className={classes.slideWrapper}><Component key={`additinalSlide_${i}`} {...data["data"][i]} ref={slideRef} /></div>;
         tempData.push(element);
       }
     } 
@@ -84,7 +101,7 @@ export default function Carousel({data, Component, navigation}) {
         <div ref={containerRef} className={classes.gridContainer}>
           {dataToDisplay}
         </div>
-        {navigationTypes[navigation]}
+        {navigationTypes[navigation] || navigationTypes["arrows"]}
       </div>
   );
 }
@@ -133,7 +150,10 @@ const Dots = ({ data, handleChange, selectedIndex})=>{
       key={`dotNavigation__${i}`}
     />
   })
-  return dots;
+
+  return <div style={{position: "absolute", bottom: "-15px", left: "50%", transform: "translateX(-50%)"}}>
+    {dots}
+  </div>;
 }
 
 

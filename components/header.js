@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { AppBar, Button, Toolbar } from "@material-ui/core";
-export default function Header() {
+import { AppBar, Button, makeStyles, Toolbar } from "@material-ui/core";
 
+const useStyles = makeStyles(theme => ({
+    appBar: {
+
+    },
+    navBar: {
+        justifyContent: "flex-end"
+    }
+}))
+export default function Header() {
+    const classes = useStyles();
     const [ pages, setPages ] = useState([]);
 
     useEffect(() => {
@@ -25,8 +34,8 @@ export default function Header() {
     }, []);
 
     return (
-        <AppBar position="absolute" color="transparent">
-            <Toolbar>
+        <AppBar className={classes.appBar} position="absolute" color="transparent" >
+            <Toolbar className={classes.navBar}>
                 {pages}
             </Toolbar>
         </AppBar>

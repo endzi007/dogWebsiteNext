@@ -15,20 +15,16 @@ const useStyles = makeStyles(theme => ({
 export default function DefaultLayout({title, children}) {
   const classes = useStyles();
   return (
-    <Grid container className={classes.wrapper}>
+    <div className={classes.wrapper}>
       <Head>
         <title>{title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Grid item xs={12}>
+      <div>
         <Header />
-        <Grid container >
-          <Grid item xs={12}>
-            {children}
-          </Grid>
-        </Grid>
+        {children}
         <Footer />
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }

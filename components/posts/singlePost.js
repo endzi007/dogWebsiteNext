@@ -19,18 +19,6 @@ const useStyles = makeStyles(theme =>({
   },
   media: {
     height: "150px"
-  },
-  gridItem: {
-    flexBasis: "25%",
-    flexGrow: 0,
-    flexShrink: 0,
-    padding: theme.spacing(2),
-    [theme.breakpoints.down("sm")]:{
-      flexBasis: "50%",
-    }, 
-    [theme.breakpoints.down("xs")]:{
-      flexBasis: "100%",
-    }, 
   }
 }));
 
@@ -46,9 +34,9 @@ const SinglePost = forwardRef((props, ref) => {
     }
   });
   return (
-    <Grid ref = {myInternalRef} item className={classes.gridItem}>
+    <div ref = {myInternalRef}>
       <InternalCard {...props} />
-    </Grid>
+    </div>
   );
 });
 
