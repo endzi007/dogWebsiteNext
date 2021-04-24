@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
     dogSectionInner: {
       paddingTop: theme.customProps.paddingTop,
       position: "relative",
-      minHeight: "60vh"
+      minHeight: "60vh",
+     
     },
     sliderSection:{
       backgroundColor: "#fff"
@@ -78,6 +79,11 @@ const useStyles = makeStyles(theme => ({
       minHeight: "200px",
       padding: theme.spacing(3),
       maxWidth: "50ch", 
+      backgroundColor: "rgba(255, 255, 255, 0.05)",
+      backdropFilter: "blur(15px)",
+      borderLeft: "2px solid white",
+      borderTop: "2px solid white",
+
       [theme.breakpoints.down("md")]: {
         zIndex: 1
       },
@@ -88,8 +94,20 @@ const useStyles = makeStyles(theme => ({
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        backgroundColor: "rgba(255,255,255, 0.5)",
+        backgroundColor: "rgba(255,255,255, 0.05)",
+        backdropFilter: "blur(15px)",
       },
+      "&::before": {
+        content: "' '",
+        position: "absolute",
+        top: 0, 
+        left: 0,
+        backgroundColor: theme.palette.primary.main,
+        width: "100%",
+        height: "100%",
+        clipPath: "circle(25% at 8% 4%)",
+        zIndex: -1
+      }
     }
     
 
@@ -133,7 +151,7 @@ export default function Home({title, children, todos, menuPages}) {
           </Grid>
 
           <Grid className={`${classes.section} ${classes.sliderSection}`} item xs={12}>
-             <Carousel data={SlidersData} Component={SinglePost} navigation="arrows" />
+             <Carousel data={SlidersData} Component={SinglePost} navigation="arrows" numberOfSlides={{default: 5, sm: 3, xs: 2}}/>
           </Grid>
 
           <Grid className={`${classes.section} ${classes.expandableSection}`} item xs={12}> 
@@ -157,7 +175,7 @@ export default function Home({title, children, todos, menuPages}) {
           </Grid>
  
           <Grid className={`${classes.section} ${classes.reviewSection}`} item xs={12}> 
-            <Carousel data={ReviewsData} Component={SingleReview} navigation="dots" />
+            <Carousel data={ReviewsData} Component={SingleReview} navigation="dots" numberOfSlides={{default: 3, sm: 2, xs: 1}}/>
           </Grid>
     </FullWidhtWithNoSidebar>
   </DefaultLayout>

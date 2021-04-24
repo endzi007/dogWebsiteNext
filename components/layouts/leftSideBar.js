@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
     wrapper: {
         display: "grid",
-        gridTemplateColumns: "1fr 10fr",
+        gridTemplateColumns: "1fr 4fr",
         gridTemplateAreas: `"sidebar content"
                             "sidebar content"
                             "sidebar content"`,
@@ -14,6 +14,11 @@ const useStyles = makeStyles(theme => ({
         "& div": {
             overflow: "hidden",
             position: "relative"
+        }, 
+        [theme.breakpoints.down("sm")]:{
+            gridTemplateColumns: "1fr", 
+            gridTemplateAreas: `"content"
+                                "sidebar"`,
         }
         
     }

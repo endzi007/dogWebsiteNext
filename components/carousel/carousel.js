@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Carousel({data, Component, navigation}) {
+export default function Carousel({data, Component, navigation, numberOfSlides}) {
   const classes = useStyles();
   const containerRef = useRef();
   const slideRef = useRef(); //this is used to determine width of the slide
@@ -61,7 +61,7 @@ export default function Carousel({data, Component, navigation}) {
     let tempData = data["data"].map((entity, i)=>{
 
       return (
-        <SlideWrapper ref={slideRef} slideWidth={{default: "25%", sm: "25%", xs: "100%"}}>
+        <SlideWrapper ref={slideRef} numberOfSlides={numberOfSlides}>
           <Component key={`slide_${i}`} {...entity} />
         </SlideWrapper>
         
@@ -72,7 +72,7 @@ export default function Carousel({data, Component, navigation}) {
     //when we click on the last last dot there is nothint left to show on the right side 
     if (navigation === "dots"){
       for (let i = 0; i < 4; i++) {
-        const element = <SlideWrapper ref={slideRef}><Component key={`additinalSlide_${i}`} {...data["data"][i]} ref={slideRef} /></SlideWrapper>;
+        const element = <SlideWrapper numberOfSlides={numberOfSlides} ref={slideRef}><Component key={`additinalSlide_${i}`} {...data["data"][i]} ref={slideRef} /></SlideWrapper>;
         tempData.push(element);
       }
     } 
@@ -153,7 +153,8 @@ Carousel.propTypes = {
     data: PropTypes.array.isRequired
   }).isRequired, 
   limit: PropTypes.number,
-  navigation: PropTypes.string
+  navigation: PropTypes.string,
+  numberOfSlides: PropTypes.shape({default: PropTypes.number, sm: PropTypes.number, sm: PropTypes.number})
 }
 
 ArrowControlers.propTypes = {

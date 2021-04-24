@@ -10,11 +10,9 @@ export default function About({title, children, todos}) {
   <DefaultLayout title="About page">
       <LeftSideBar>
         <div>
-        <Carousel data={sliderData} Component={SinglePost} navigation="arrows" /> 
+        content sidebar
         </div>
-        <div>
-          <Carousel data={sliderData} Component={SinglePost} navigation="dots" /> 
-        </div>
+        <Carousel data={sliderData} Component={SinglePost} navigation="dots" numberOfSlides={{ default: 4, sm: 2, xs: 1}}/> 
       </LeftSideBar>
   </DefaultLayout>
   );
