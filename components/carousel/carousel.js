@@ -2,6 +2,7 @@ import { Radio, makeStyles, Fab, Typography } from "@material-ui/core";
 import React, { useRef, useState, useEffect } from "react";
 import { ArrowForwardIos, ArrowBackIos } from "@material-ui/icons";
 import PropTypes from "prop-types";
+import SlideWrapper from "./slideWrapper";
 
 //styles for Carousel component
 const useStyles = makeStyles((theme) => ({
@@ -19,18 +20,6 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(5),
       paddingRight: theme.spacing(5),
       position: "relative"
-  },
-  slideWrapper: {
-      flexBasis: "25%",
-      flexGrow: 0,
-      flexShrink: 0,
-      padding: theme.spacing(2),
-      [theme.breakpoints.down("sm")]:{
-        flexBasis: "50%",
-      }, 
-      [theme.breakpoints.down("xs")]:{
-        flexBasis: "100%",
-      }
   }
 }));
 
@@ -72,9 +61,10 @@ export default function Carousel({data, Component, navigation}) {
     let tempData = data["data"].map((entity, i)=>{
 
       return (
-        <div className={classes.slideWrapper}>
-          <Component key={`slide_${i}`} {...entity} ref={slideRef} />
-        </div>
+        <SlideWrapper ref={slideRef} slideWidth={{default: "25%", sm: "25%", xs: "100%"}}>
+          <Component key={`slide_${i}`} {...entity} />
+        </SlideWrapper>
+        
       );
     })
 
@@ -82,7 +72,7 @@ export default function Carousel({data, Component, navigation}) {
     //when we click on the last last dot there is nothint left to show on the right side 
     if (navigation === "dots"){
       for (let i = 0; i < 4; i++) {
-        const element = <div className={classes.slideWrapper}><Component key={`additinalSlide_${i}`} {...data["data"][i]} ref={slideRef} /></div>;
+        const element = <SlideWrapper ref={slideRef}><Component key={`additinalSlide_${i}`} {...data["data"][i]} ref={slideRef} /></SlideWrapper>;
         tempData.push(element);
       }
     } 

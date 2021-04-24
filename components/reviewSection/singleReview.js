@@ -27,28 +27,10 @@ const useStyles = makeStyles(theme => ({
 
 }))
 
-const SingleReview = forwardRef((props, ref) => {
-    const classes = useStyles();
-    const myInternalRef = useRef()
-    useImperativeHandle(ref, ()=>{
-      return {
-        getWidth: ()=>{
-          console.log("function getWidth called");
-          return myInternalRef.current.offsetWidth
-        }
-      }
-    });
-    return (
-      <Card ref = {myInternalRef} className={classes.wrapper}>
-        <InternalComponent {...props} />
-      </Card>
-    );
-  });
-  
-  export default SingleReview;
 
 
-const InternalComponent = ({ pictureUrl, personName, personText, age, title })=>{
+
+const SingleReview = ({ pictureUrl, personName, personText, age, title })=>{
     const classes = useStyles();
     return (
         <CardContent className={classes.card}>
@@ -61,7 +43,9 @@ const InternalComponent = ({ pictureUrl, personName, personText, age, title })=>
     );
 }
 
-InternalComponent.propTypes = {
+export default SingleReview; 
+
+SingleReview.propTypes = {
     pictureUrl: PropTypes.string.isRequired,
     personName: PropTypes.string.isRequired,
     personText: PropTypes.string.isRequired

@@ -22,28 +22,8 @@ const useStyles = makeStyles(theme =>({
   }
 }));
 
-const SinglePost = forwardRef((props, ref) => {
-  const classes = useStyles();
-  const myInternalRef = useRef()
-  useImperativeHandle(ref, ()=>{
-    return {
-      getWidth: ()=>{
-        console.log("function getWidth called");
-        return myInternalRef.current.offsetWidth
-      }
-    }
-  });
-  return (
-    <div ref = {myInternalRef}>
-      <InternalCard {...props} />
-    </div>
-  );
-});
 
-export default SinglePost;
-
-
-const InternalCard = ({ pictureUrl, headingText, slideText })=>{
+const SinglePost = ({ pictureUrl, headingText, slideText })=>{
   const classes = useStyles();
   return (
     <Card className={classes.root}>
@@ -73,8 +53,9 @@ const InternalCard = ({ pictureUrl, headingText, slideText })=>{
   </Card>
   );
 }
- 
-InternalCard.propTypes = {
+
+export default SinglePost;
+SinglePost.propTypes = {
     pictureUrl: PropTypes.string.isRequired,
     headingText: PropTypes.string.isRequired,
     slideText: PropTypes.string.isRequired,
